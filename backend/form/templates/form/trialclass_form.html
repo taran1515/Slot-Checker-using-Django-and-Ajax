@@ -1,0 +1,32 @@
+{% block content %}
+
+  <h2>NotchUp Trial Form</h2>
+
+  <form method="get" id="trialclassForm" data-slots-url="{% url 'ajax_load_slots' %}" novalidate>
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit">Save</button>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_course").change(function () {
+      var url = $("#trialclassForm").attr("data-slots-url");
+      var courseId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'course': courseId
+        },
+        success: function (data) {
+          $("#id_slot").html(data);
+        }
+      });
+
+    });
+  </script>
+
+{% endblock %}
