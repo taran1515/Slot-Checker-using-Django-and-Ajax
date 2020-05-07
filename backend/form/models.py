@@ -25,11 +25,11 @@ class TimeSlots(models.Model):
 
 class TrialClass(models.Model):
 
-    parents_name = models.CharField(max_length=50)
-    parents_contact_no = models.CharField(max_length=10)
-    parents_email_id = models.EmailField()
-    child_name = models.CharField(max_length=50)
-    child_age = models.IntegerField()
+    parents_name = models.CharField(max_length=50,null=False)
+    parents_contact_no = models.CharField(max_length=10,null=False)
+    parents_email_id = models.EmailField(null=False)
+    child_name = models.CharField(max_length=50,null=False)
+    child_age = models.IntegerField(null=False)
     course = models.ForeignKey(Course,on_delete=models.SET_NULL, null=True)
     slot = models.ForeignKey(Slots,on_delete=models.SET_NULL, null=True)
     time_slot = models.ForeignKey(TimeSlots,on_delete=models.SET_NULL, null=True)

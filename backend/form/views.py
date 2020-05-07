@@ -5,16 +5,17 @@ from .models import TrialClass,Slots,TimeSlots
 from .forms import TrialClassForm
 from datetime import datetime,timedelta,date
 
-# class TrialClassCreateView(CreateView):
-#     model = TrialClass
-#     form_class = TrialClassForm
-    # success_url = reverse_lazy('trialclass_changelist')
 
 def trialclasscreate(request):
     if request.method == 'POST':
         form = TrialClassForm(request.POST)
         if form.is_valid():
-            pass
+            print("go")
+            form.save(commit=True)
+            form = TrialClassForm()
+        else:
+            print("stop")
+            print (form.errors)
     else:
         form = TrialClassForm()
     return render(request, 'form/trialclass_form.html', {'form': form})
