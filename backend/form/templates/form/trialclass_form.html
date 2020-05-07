@@ -1,20 +1,42 @@
+{% load widget_tweaks %}
 {% block content %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <title>Simple is Better Than Complex</title>
+</head>
 
   <h2>NotchUp Trial Form</h2>
 
-  <form method="get" id="trialclassForm" data-slots-url="{% url 'ajax_load_slots' %}" novalidate>
+  <form method="get" id="trialclassForm" data-slots-url="{% url 'ajax_load_slots' %}" data-timeslots-url="{% url 'ajax_load_time_slots' %}" novalidate>
+
     {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    <button type="submit">Save</button>
+
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+  {% endfor %}
+
+  {% for field in form.visible_fields %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {% render_field field class="form-control" %}
+      {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script>
+   
     $("#id_course").change(function () {
       var url = $("#trialclassForm").attr("data-slots-url");
       var courseId = $(this).val();
+
 
       $.ajax({
         url: url,
@@ -25,6 +47,23 @@
           $("#id_slot").html(data);
         }
       });
+
+    console.log(id_slot)
+    $("#id_slot").change(function () {
+      var url2 = $("#trialclassForm").attr("data-timeslots-url");
+      var slotId = $(this).val();
+
+
+      $.ajax({
+        url: url2,
+        data: {
+          'slot': slotId
+        },
+        success: function (data) {
+          $("#id_time_slot").html(data);
+        }
+      })
+    });
 
     });
   </script>
