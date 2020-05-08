@@ -1,4 +1,8 @@
 <option value="">---------</option>
+{% if slots %}
 {% for slot in slots %}
 <option value="{{ slot.pk }}">{{ slot.time_slot }}</option>
-{% endfor %}
+{% endfor%}
+{% else %}
+<script>alert("No time slots for today. Chose any other date")</script>
+{% endif %}

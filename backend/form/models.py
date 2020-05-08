@@ -1,5 +1,7 @@
 from datetime import datetime,timedelta 
 from django.db import models
+import requests
+
 
 
 class Course(models.Model):
@@ -21,7 +23,7 @@ class TimeSlots(models.Model):
     time_slot = models.TimeField(default=datetime.now().time)
 
     def __str__(self):
-        return str(self.time_slot)
+        return str(self.slot)+'-'+str(self.time_slot)
 
 class TrialClass(models.Model):
 
@@ -36,3 +38,4 @@ class TrialClass(models.Model):
     
     def __str__(self):
         return self.child_name
+

@@ -15,7 +15,7 @@
     $("#id_course").change(function () {
       var url = $("#trialclassForm").attr("data-slots-url");
       var courseId = $(this).val();
-
+      console.log(courseId);
 
       $.ajax({
         url: url,
@@ -27,10 +27,10 @@
         }
       });
 
-    console.log(id_slot)
     $("#id_slot").change(function () {
       var url2 = $("#trialclassForm").attr("data-timeslots-url");
       var slotId = $(this).val();
+      console.log(slotId)
 
 
       $.ajax({
