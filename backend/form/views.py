@@ -40,8 +40,8 @@ def load_slots(request):
 def load_time_slots(request):
     slot_id = request.GET.get('slot')
     x = Slots.objects.get(id=slot_id)
-    # current_day = (datetime.today()).strftime("%Y-%m-%d")
-    current_day = (datetime.today()-timedelta(days=4)).strftime("%Y-%m-%d")
+    current_day = (datetime.today()).strftime("%Y-%m-%d")
+    # current_day = (datetime.today()-timedelta(days=4)).strftime("%Y-%m-%d")
     """
     This if statement makes sure that slot date
     is chosen as current date, then time slot should be minimum 4 hours from now
